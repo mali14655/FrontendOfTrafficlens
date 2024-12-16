@@ -1,14 +1,13 @@
 import React, { useEffect, useState } from 'react'
 import { base_url } from './api';
-import { ToastContainert,toast } from 'react-toastify';
-
+import { ToastContainer,toast } from 'react-toastify';
 export default function Analysis() {
     const[data,setdata]=useState({
       websiteName:""
     })
     const [resData,setresData]=useState({
       clicks:"",
-      ips:""
+      records: []
     });
     // Determine color based on the value
   const getColor = () => {
@@ -75,6 +74,7 @@ export default function Analysis() {
 
   return (
     <>
+    <ToastContainer/>
     <div className='w-full flex justify-center mt-10 h-[40vh]'>
       <form action="" onSubmit={handleSubmit} className='w-1/2 flex justify-center'>
       <div className='w-full flex flex-col items-center gap-8'>
@@ -85,21 +85,24 @@ export default function Analysis() {
         </form>      
     </div>
 
-<div className='w-full flex gap-2'>
-<div className="w-1/2 border-[1px] border-black bg-white shadow-md rounded-md p-4">
-    <h2 className="text-lg font-semibold mb-4">IP List</h2>
-    {Array.isArray(resData.ips) && resData.ips.length > 0 ? (
-      <ul className="list-disc list-inside space-y-2">
-        {resData.ips.map((ip, index) => (
-          <li key={index} className="text-gray-700">
-            {ip}
-          </li>
-        ))}
-      </ul>
-    ) : (
-      <p className="text-gray-500">No IPs available</p>
-    )}
-  </div>
+
+    <div className='w-full flex gap-2'>
+        <div className="w-1/2 border-[1px] border-black bg-white shadow-md rounded-md p-4">
+          <h2 className="text-lg font-semibold mb-4">Details</h2>
+          {Array.isArray(resData.records) && resData.records.length > 0 ? (
+            <ul className="list-disc list-inside space-y-2">
+              {resData.records.map((record, index) => (
+                <li key={index} className="text-gray-700">
+                  <p><strong>IP:</strong> {record.ip}</p>
+                  <p><strong>City:</strong> {record.city}</p>
+                  <p><strong>Country:</strong> {record.country}</p>
+                </li>
+              ))}
+            </ul>
+          ) : (
+            <p className="text-gray-500">No records available</p>
+          )}
+        </div>
     
     <div className="flex w-1/2 border-[1px] border-black shadow-md rounded-md  h-[50vh] justify-center items-center bg-gray-100">
       <div className="relative flex items-center justify-center w-40 h-40">
