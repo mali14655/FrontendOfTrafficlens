@@ -91,7 +91,7 @@ export default function Register() {
                         transition: Zoom,
                         });
             }else if(data.error){
-                toast.success(`${data.error}`, {
+                toast.error(`${data.error}`, {
                     position: "top-center",
                     autoClose: 2000,
                     hideProgressBar: true,
