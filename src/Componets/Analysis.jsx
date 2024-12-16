@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { base_url } from './api';
+import { ToastContainert,toast } from 'react-toastify';
 
 export default function Analysis() {
     const[data,setdata]=useState({
@@ -34,7 +35,17 @@ export default function Analysis() {
   const handleSubmit=(e)=>{
     e.preventDefault();
     if(data.websiteName==""){
-      alert("Website Name Required !")
+      toast.error(`Website Name Required !`, {
+        position: "top-center",
+        autoClose: 2000,
+        hideProgressBar: true,
+        closeOnClick: false,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+        transition: Zoom,
+        });
     }
     else{
 
@@ -42,7 +53,17 @@ export default function Analysis() {
       .then((res)=>(res.json()))                                      
       .then((data)=>{
       if(data.error){
-        alert(data.error);
+        toast.error(`${data.error} !`, {
+          position: "top-center",
+          autoClose: 2000,
+          hideProgressBar: true,
+          closeOnClick: false,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+          transition: Zoom,
+          });;
       }
       else{
         console.log(data)

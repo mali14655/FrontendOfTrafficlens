@@ -1,6 +1,8 @@
-import React, { useRef, useState } from 'react'
+import React, { useRef, useState,useEffect } from 'react'
+import { ToastContainer, Zoom, toast } from 'react-toastify';
 import { base_url } from './api.jsx';
 export default function Register() {
+    
     const [data,setdata]=useState({
         websiteName:"",
         url:""
@@ -10,20 +12,52 @@ export default function Register() {
     const textRef=useRef(null);
 
 
+     
+
 
     const copyUrl=async()=>{
         const valueTobbCopied=textRef.current.value;
         if(valueTobbCopied){
             try{
                 await navigator.clipboard.writeText(valueTobbCopied)
-                alert(`${textRef.current.value} copied to clipboard !`);
+                toast.success(`${textRef.current.value} copied to clipboard !`, {
+                        position: "top-center",
+                        autoClose: 2000,
+                        hideProgressBar: true,
+                        closeOnClick: false,
+                        pauseOnHover: true,
+                        draggable: true,
+                        progress: undefined,
+                        theme: "light",
+                        transition: Zoom,
+                        });
             }
             catch(err){
-                alert("error while copying!");
+                toast.error('Error While Copying !', {
+                    position: "top-center",
+                    autoClose: 2000,
+                    hideProgressBar: true,
+                    closeOnClick: false,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "light",
+                    transition: Zoom,
+                    });
             }
         }
         else{
-            alert("Input is Empty !")
+            toast.error('Input is Empty !', {
+                position: "top-center",
+                autoClose: 2000,
+                hideProgressBar: true,
+                closeOnClick: false,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+                transition: Zoom,
+                });
         }
     }
 
@@ -45,12 +79,42 @@ export default function Register() {
         .then((data)=>{
             if(data.url){
                     seturl(data.url);
-                    alert(data.msg)
+                    toast.success(`${data.msg}`, {
+                        position: "top-center",
+                        autoClose: 2000,
+                        hideProgressBar: true,
+                        closeOnClick: false,
+                        pauseOnHover: true,
+                        draggable: true,
+                        progress: undefined,
+                        theme: "light",
+                        transition: Zoom,
+                        });
             }else if(data.error){
-                alert(data.error);
+                toast.success(`${data.error}`, {
+                    position: "top-center",
+                    autoClose: 2000,
+                    hideProgressBar: true,
+                    closeOnClick: false,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "light",
+                    transition: Zoom,
+                    });
             }
             else{
-                alert(data.msg);
+                toast.success(`${data.msg}`, {
+                    position: "top-center",
+                    autoClose: 2000,
+                    hideProgressBar: true,
+                    closeOnClick: false,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "light",
+                    transition: Zoom,
+                    });;
             }
         })
 
@@ -61,6 +125,7 @@ export default function Register() {
 
   return (
     <>
+    <ToastContainer />
     <div className='w-full flex justify-center  h-[50vh]'>
     <form className='w-1/2 flex flex-col justify-center items-center gap-8' onSubmit={handleSubmit}>
         <h1 className='text-lg font-medium'>Register using your URL</h1>
